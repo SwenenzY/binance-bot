@@ -23,8 +23,7 @@ router_controller( app );
 ( async (  ) => {
 
     //telegram_bot.send_message( "Bot activated." );
-    
-    const balances = await binance.get_balances();
+    const usdt_balance = await binance.get_balance('USDT');
 
-    console.log( balances['USDT'] );
+    console.log( usdt_balance );
 } )(  );
