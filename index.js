@@ -22,7 +22,7 @@ router_controller( app );
 
 ( async (  ) => {
 
-    telegram_bot.send_message( "Bot activated." );
+    //telegram_bot.send_message( "Bot activated." );
     
     const balances = await binance.get_balances();
 

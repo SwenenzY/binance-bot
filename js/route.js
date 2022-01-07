@@ -2,8 +2,9 @@ const telegram_bot = require('./telegram.js');
 
 module.exports = function (app) {
 
-    app.post( '/api/binance_api', async function ( req,res ) {
+    app.post( '/api/binance_trade', async function ( req,res ) {
         const { coin, action, price } = req.body;
+        telegram_bot.send_message(`🤖 [${action}] An order to ${coin}, ${price} was sent to Binance Bot.`);
 
         res.sendStatus( 200 );
     } );
