@@ -1,3 +1,4 @@
+const telegram_bot = require('./telegram.js');
 
 module.exports = function (app) {
 
