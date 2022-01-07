@@ -1,0 +1,23 @@
+{
+  "name": "binance-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SwenenzY/binance-bot.git"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "node-binance-api": "^0.13.1"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SwenenzY/binance-bot/issues"
+  },
+  "homepage": "https://github.com/SwenenzY/binance-bot#readme",
+  "description": ""
+}
