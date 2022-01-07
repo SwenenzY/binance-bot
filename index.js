@@ -1,6 +1,9 @@
-const Binance = require('node-binance-api');
-var env = require('dotenv').config();
+const binance = require('./js/binance.js');
 
-const api_key = process.env.BINANCE_TOKEN;
+( async (  ) => {
 
-console.log(api_key);
+    console.log( "Starting... " );
+    const balances = await binance.get_balances();
+
+    console.log( balances['BTC'] );
+} )(  );
