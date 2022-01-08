@@ -23,7 +23,7 @@ module.exports = function (app) {
             //}
         } else{
             if ( price > 0.00020 ) {
-                let amount = await binance.get_coin_amount( 'BTCUSDT' );
+                let amount = await binance.get_coin_amount( 'BTC' );
                 binance.sell_coin( 'BTCUSDT', amount );
                 telegram_bot.send_message( `Sold 'BTCUSDT' with ${amount} for ${price}` );
                 binance.set_state( false );
