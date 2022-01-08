@@ -129,5 +129,6 @@ module.exports = {
     get_balances,
     buy_coin,
     sell_coin,
-    can_buy
+    set_state,
+    get_state
 };
