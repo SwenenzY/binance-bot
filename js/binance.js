@@ -1,10 +1,10 @@
-const Binance = require('node-binance-api');
-var env = require('dotenv').config();
+const Binance = require( 'node-binance-api' );
+var env       = require( 'dotenv' ).config(  );
 
-const binance = new Binance().options({
+const binance = new Binance().options( {
     APIKEY: process.env.BINANCE_TOKEN,
     APISECRET: process.env.BINANCE_SECRET
-});
+} );
 
 function get_balance( coin ) {
     return new Promise( ( resolve, reject ) => {
@@ -41,11 +41,14 @@ function get_coin_price( coin ) {
         } );
     } );
 }
-function floorFigure(figure, decimals){
+
+function floor_figure(figure, decimals){
     if (!decimals) decimals = 2;
     var d = Math.pow(10,decimals);
     return (parseInt(figure*d)/d).toFixed(decimals);
 }
+
+// WE DON'T NEED A FEE OR COMMISSION CUZ WE ARE USING BNB FOR THE FEE
 
 function calculate_buy_amount( coin, price ) {
     return new Promise( ( resolve, reject ) => {
@@ -54,15 +57,12 @@ function calculate_buy_amount( coin, price ) {
                 reject( error );
             } else {
                 var balance = balances[coin].available;
-                var amount = (0.98 * balance) / price;
-                var fee = amount * 0.000002;
-                var balance = amount-fee;
-                resolve( floorFigure(balance,5 ) );
+                var amount = balance / price;
+                resolve( floor_figure(amount, 5 ) );
             }
         } );
     } );
 }
-
 
 function get_coin_amount( coin, price ) {
     return new Promise( ( resolve, reject ) => {
@@ -71,9 +71,7 @@ function get_coin_amount( coin, price ) {
                 reject( error );
             } else {
                 var balance = balances[coin].available;
-                var fee = balance * 0.050;
-                var balance = balance-fee;
-                resolve( floorFigure(balance,5 ) );
+                resolve( floor_figure( balance, 5 ) );
             }
         } );
     } );
@@ -111,13 +109,21 @@ function get_current_price( coin ) {
 }
 
 let can_buy = false;
+function set_state( state ) { can_buy = state; }
+function get_state( ) { return can_buy };
 
-function set_state( state ) {
-    can_buy = state;
-}
-
-function get_state( ) {
-    return can_buy;
+function perc_increase(a, b) {
+    let percent;
+    if (b !== 0) {
+        if (a !== 0) {
+            percent = (b - a) / a * 100;
+        } else {
+            percent = b * 100;
+        }
+    } else {
+        percent = - a * 100;
+    }
+    return percent.toFixed(2);
 }
 
 module.exports = {
@@ -130,5 +136,6 @@ module.exports = {
     buy_coin,
     sell_coin,
     set_state,
-    get_state
+    get_state,
+    perc_increase
 };
