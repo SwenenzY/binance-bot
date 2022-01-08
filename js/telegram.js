@@ -12,11 +12,13 @@ bot.on('message', async (msg) => {
             let amount = await binance.calculate_buy_amount( 'USDT', price );
             binance.buy_coin( 'BTCUSDT', amount );
             send_message( `Bought BTCUSDT with ${amount} for ${price}` );
+            binance.set_state( false );
         }
         if ( msg.text == "sell" ) {
             let amount = await binance.get_coin_amount( 'BTC', price );
             binance.sell_coin( 'BTCUSDT', amount );
             send_message( `Sold ${amount}x BTCUSDT for ${price}` );
+            binance.set_state( false );
         }
     }
     if ( msg.text == "price" ) {

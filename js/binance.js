@@ -110,6 +110,16 @@ function get_current_price( coin ) {
     } );
 }
 
+let can_buy = false;
+
+function set_state( state ) {
+    can_buy = state;
+}
+
+function get_state( ) {
+    return can_buy;
+}
+
 module.exports = {
     get_balance,
     get_coin_price,
@@ -118,5 +128,6 @@ module.exports = {
     get_current_price,
     get_balances,
     buy_coin,
-    sell_coin
+    sell_coin,
+    can_buy
 };
