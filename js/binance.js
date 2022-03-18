@@ -77,6 +77,23 @@ function get_coin_amount( coin, price ) {
     } );
 }
 
+
+async function buy_future( coin, amount ) {
+    console.info( `Bought ${amount}x ${coin}` );
+    await binance.futuresMarketBuy( coin, amount, (error, response) => {
+        console.info("Market Buy response", response);
+        console.info("order id: " + response.orderId);
+    } );
+}
+
+async function sell_future( coin, amount ) {
+    console.info( `Bought ${amount}x ${coin}` );
+    await binance.futuresMarketSell( coin, amount, (error, response) => {
+        console.info("Market Buy response", response);
+        console.info("order id: " + response.orderId);
+    } );
+}
+
 async function buy_coin( coin, amount ) {
     console.info( `Bought ${amount}x ${coin}` );
     await binance.marketBuy( coin, amount, (error, response) => {
@@ -108,10 +125,6 @@ function get_current_price( coin ) {
     } );
 }
 
-let can_buy = false;
-function set_state( state ) { can_buy = state; }
-function get_state( ) { return can_buy };
-
 function perc_increase(a, b) {
     let percent;
     if (b !== 0) {
@@ -135,7 +148,7 @@ module.exports = {
     get_balances,
     buy_coin,
     sell_coin,
-    set_state,
-    get_state,
-    perc_increase
+    perc_increase,
+    buy_future,
+    sell_future
 };

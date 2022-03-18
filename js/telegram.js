@@ -10,6 +10,7 @@ bot.on('message', async (msg) => {
     if ( msg.chat.id == process.env.SWZ_ID ) {
         if ( msg.text == "buy" ) {
             let amount = await binance.calculate_buy_amount( 'USDT', price );
+<<<<<<< Updated upstream
             binance.buy_coin( 'ATOMUSDT', amount );
             send_message( `Bought ATOMUSDT with ${amount} for ${price}`, msg.chat.id );
             binance.set_state( false );
@@ -19,6 +20,15 @@ bot.on('message', async (msg) => {
             binance.sell_coin( 'ATOMUSDT', amount );
             send_message( `Sold ${amount}x ATOMUSDT for ${price}`, msg.chat.id );
             binance.set_state( false );
+=======
+            binance.buy_future( 'BTCUSDT', amount );
+            send_message( `Bought BTCUSDT with ${amount} for ${price}`, msg.chat.id );
+        }
+        if ( msg.text == "sell" ) {
+            let amount = await binance.get_coin_amount( 'BTC', price );
+            binance.sell_future( 'BTCUSDT', amount );
+            send_message( `Sold ${amount}x BTCUSDT for ${price}`, msg.chat.id );
+>>>>>>> Stashed changes
         }
     }
     if ( msg.text == "price" ) {
@@ -27,15 +37,23 @@ bot.on('message', async (msg) => {
 
     if( msg.text == "balance" ) {
         await binance.get_balances().then( balances => {
+<<<<<<< Updated upstream
             bot.sendMessage( msg.chat.id, `USDT: ${balances.USDT.available}` );
             bot.sendMessage( msg.chat.id, `ATOM: ${balances.ATOM.available}` );
+=======
+            for ( let key in balances ) {
+                if(balances[key].available > 0){
+                    bot.sendMessage( msg.chat.id , `${key}: ${balances[key].available}` );
+                }
+            }
+>>>>>>> Stashed changes
         } );
     }
 
 });
 
 function send_message( message, id ) {
-    bot.sendMessage( id ? id : process.env.GROUP_ID, message );
+    bot.sendMessage( id ? id : process.env.SWZ_ID, message );
 }
 
 module.exports = {
